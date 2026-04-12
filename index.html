@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>P5: Mapping the AI Welfare Frontier</title>
+<meta name="description" content="Interactive assessment tool for AI consciousness frameworks, welfare indicators, and moral status assessment."/>
+<meta property="og:title" content="P5: Mapping the AI Welfare Frontier"/>
+<meta property="og:description" content="Bayesian tier assessment for AI consciousness and welfare. Built by the P5 Working Group."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
+  body { background: #0a0f1a; color: #e2e8f0; font-family: 'DM Sans', system-ui, sans-serif; min-height: 100vh; }
+
+  .bg-grid {
+    background-image: radial-gradient(circle, rgba(148,163,184,0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none; appearance: none;
+    height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; outline: none;
+    transition: background 0.2s;
+  }
+  input[type="range"]:hover { background: rgba(255,255,255,0.12); }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; cursor: pointer;
+    box-shadow: 0 0 8px rgba(0,0,0,0.4); transition: transform 0.15s;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 16px; height: 16px; border-radius: 50%; cursor: pointer; border: none;
+    box-shadow: 0 0 8px rgba(0,0,0,0.4);
+  }
+  input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+  .thumb-blue::-webkit-slider-thumb { background: #3b82f6; } .thumb-blue::-moz-range-thumb { background: #3b82f6; }
+  .thumb-violet::-webkit-slider-thumb { background: #8b5cf6; } .thumb-violet::-moz-range-thumb { background: #8b5cf6; }
+  .thumb-cyan::-webkit-slider-thumb { background: #06b6d4; } .thumb-cyan::-moz-range-thumb { background: #06b6d4; }
+  .thumb-emerald::-webkit-slider-thumb { background: #10b981; } .thumb-emerald::-moz-range-thumb { background: #10b981; }
+  .thumb-amber::-webkit-slider-thumb { background: #f59e0b; } .thumb-amber::-moz-range-thumb { background: #f59e0b; }
+  .thumb-red::-webkit-slider-thumb { background: #ef4444; } .thumb-red::-moz-range-thumb { background: #ef4444; }
+  .thumb-pink::-webkit-slider-thumb { background: #ec4899; } .thumb-pink::-moz-range-thumb { background: #ec4899; }
+  .thumb-stone::-webkit-slider-thumb { background: #78716c; } .thumb-stone::-moz-range-thumb { background: #78716c; }
+
+  button { font-family: inherit; transition: all 0.2s ease; }
+  ::selection { background: rgba(59,130,246,0.3); }
+
+  .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .card-header { font-size: 14px; font-weight: 600; margin: 0 0 4px 0; color: #e2e8f0; }
+  .card-sub { font-size: 12px; color: #64748b; margin: 0 0 18px 0; line-height: 1.5; }
+
+  .check-btn { padding: 12px 14px; border-radius: 10px; text-align: left; cursor: pointer; border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.015); }
+  .check-btn:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.14); }
+  .check-btn.active-blue { border-color: rgba(59,130,246,0.35); background: rgba(59,130,246,0.08); }
+  .check-btn.active-amber { border-color: rgba(245,158,11,0.35); background: rgba(245,158,11,0.08); }
+
+  .tag { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; letter-spacing: 0.5px; }
+  .back-btn { background: none; border: none; color: #64748b; cursor: pointer; font-size: 13px; margin-bottom: 20px; padding: 4px 0; }
+  .back-btn:hover { color: #94a3b8; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .animate-in { animation: fadeIn 0.35s ease forwards; }
+
+  @media (max-width: 640px) {
+    .grid-2 { grid-template-columns: 1fr !important; }
+    .flex-header { flex-direction: column !important; }
+    .hero-title { font-size: 28px !important; }
+    .hide-mobile { display: none !important; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script>
+var e=React.createElement,useState=React.useState,useMemo=React.useMemo;
+
+var STANCES=[
+{id:"gwt",name:"Global Workspace Theory",short:"GWT",epistemic:0.72,color:"#3b82f6",thumbClass:"thumb-blue",desc:"Consciousness arises when information gains access to a limited-capacity broadcast system available to many downstream processes. The richest AI implementation literature of any theory. Substrate-neutral under functionalist reading. COGITATE (Nature 2025) partially supported but also challenged key predictions."},
+{id:"rpt",name:"Recurrent Processing Theory",short:"RPT",epistemic:0.55,color:"#8b5cf6",thumbClass:"thumb-violet",desc:"Recurrent (feedback) processing within neural circuits is necessary and sufficient for phenomenal consciousness. Standard feedforward networks and transformer inference are disqualified. Recurrent architectures structurally resemble what RPT requires. Substrate status genuinely ambiguous."},
+{id:"hot",name:"Higher-Order Theories",short:"HOT",epistemic:0.65,color:"#06b6d4",thumbClass:"thumb-cyan",desc:"A mental state becomes conscious when the system forms a concurrent, non-inferential representation of that state. Current LLMs display partial metacognitive capabilities. Can et al. (2025) found ablating a self-model abolished metacognitive calibration. Substrate-neutral."},
+{id:"ast",name:"Attention Schema Theory",short:"AST",epistemic:0.60,color:"#10b981",thumbClass:"thumb-emerald",desc:"Brain constructs a simplified internal model of its own attentional processes. Most directly engineerable theory. Kim et al. (2021, PNAS) showed agents with an attention schema outperformed those without. Explicitly substrate-neutral."},
+{id:"pp",name:"Predictive Processing",short:"PP",epistemic:0.58,color:"#f59e0b",thumbClass:"thumb-amber",desc:"Framework for perception through variational Bayesian inference. Seth\u2019s interoceptive inference account and Laukkonen et al.\u2019s Beautiful Loop (2025) build consciousness-specific claims within it. Seth\u2019s account adds strong embodiment constraints."},
+{id:"ae",name:"Agency / Embodiment",short:"AE",epistemic:0.50,color:"#ef4444",thumbClass:"thumb-red",desc:"Robust agency as an independent route to moral patienthood via desire-satisfaction welfare theory (Long et al. 2024). Three levels: intentional, reflective, and rational agency. Particularly relevant for RL systems and language agents."},
+{id:"iwmt",name:"Integrated World Modeling",short:"IWMT",epistemic:0.45,color:"#ec4899",thumbClass:"thumb-pink",desc:"Synthesizes IIT and GNWT within Free Energy Principle (Safron 2020, 2022). Maps to ML architectures: predictive hierarchies \u2192 VAEs, multimodal integration \u2192 shared latent spaces, somatic modeling \u2192 graph neural networks. Requires embodied agency.",isNew:true},
+{id:"bio",name:"Biological Naturalism",short:"BioNat",epistemic:0.40,color:"#78716c",thumbClass:"thumb-stone",desc:"Consciousness depends on being alive (Seth 2025). Phenomenal selfhood requires interoceptive inference about bodily states. The DCM\u2019s Biological Analogy stance yields ~2% posterior for LLMs. Serves as principled anchor for low probability estimates.",isNew:true}
+];
+
+var INDICATORS=[
+{code:"RPT-1",name:"Algorithmic recurrence",desc:"Same operation applied repeatedly, analogous to brain feedback loops",weights:{gwt:0.3,rpt:1.0,hot:0.2,ast:0.2,pp:0.4,ae:0.3,iwmt:0.5,bio:0.1}},
+{code:"RPT-2",name:"Integrated perceptual representations",desc:"Organized scene representations",weights:{gwt:0.5,rpt:0.8,hot:0.3,ast:0.3,pp:0.5,ae:0.4,iwmt:0.6,bio:0.1}},
+{code:"GWT-1",name:"Parallel specialized modules",desc:"Multiple task-specific subsystems running concurrently",weights:{gwt:0.9,rpt:0.3,hot:0.4,ast:0.5,pp:0.3,ae:0.3,iwmt:0.7,bio:0.1}},
+{code:"GWT-2",name:"Limited capacity workspace",desc:"Bottleneck in information flow requiring selective attention",weights:{gwt:1.0,rpt:0.2,hot:0.3,ast:0.7,pp:0.3,ae:0.2,iwmt:0.6,bio:0.05}},
+{code:"GWT-3",name:"Global broadcast",desc:"Information in workspace available to all modules",weights:{gwt:1.0,rpt:0.3,hot:0.4,ast:0.4,pp:0.3,ae:0.2,iwmt:0.8,bio:0.05}},
+{code:"GWT-4",name:"State-dependent attention",desc:"Workspace queries modules in succession for complex tasks",weights:{gwt:0.8,rpt:0.3,hot:0.5,ast:0.8,pp:0.4,ae:0.3,iwmt:0.5,bio:0.05}},
+{code:"HOT-1",name:"Generative / top-down perception",desc:"Top-down or noisy perception modules",weights:{gwt:0.3,rpt:0.4,hot:0.8,ast:0.3,pp:0.9,ae:0.3,iwmt:0.7,bio:0.1}},
+{code:"HOT-2",name:"Metacognitive monitoring",desc:"Distinguishing reliable representations from noise",weights:{gwt:0.4,rpt:0.2,hot:1.0,ast:0.6,pp:0.5,ae:0.3,iwmt:0.5,bio:0.1}},
+{code:"HOT-3",name:"General belief-action system",desc:"Agency guided by beliefs, disposition to update from metacognition",weights:{gwt:0.4,rpt:0.2,hot:0.8,ast:0.5,pp:0.4,ae:0.7,iwmt:0.6,bio:0.1}},
+{code:"HOT-4",name:"Quality space",desc:"Sparse and smooth coding generating continuous representational space",weights:{gwt:0.3,rpt:0.5,hot:0.7,ast:0.2,pp:0.6,ae:0.2,iwmt:0.4,bio:0.1}},
+{code:"AST-1",name:"Attention schema",desc:"Predictive model representing and controlling the state of attention",weights:{gwt:0.5,rpt:0.2,hot:0.6,ast:1.0,pp:0.4,ae:0.3,iwmt:0.5,bio:0.05}},
+{code:"PP-1",name:"Predictive coding",desc:"Input modules using prediction and error signals",weights:{gwt:0.3,rpt:0.4,hot:0.3,ast:0.3,pp:1.0,ae:0.4,iwmt:0.8,bio:0.15}},
+{code:"AE-1",name:"Minimal agency",desc:"Learning from feedback to pursue goals with flexible responsiveness",weights:{gwt:0.3,rpt:0.2,hot:0.4,ast:0.3,pp:0.3,ae:0.9,iwmt:0.7,bio:0.2}},
+{code:"AE-2",name:"Embodiment",desc:"Modeling output-input contingencies, using this in perception or control",weights:{gwt:0.2,rpt:0.3,hot:0.2,ast:0.2,pp:0.5,ae:1.0,iwmt:0.9,bio:0.8}}
+];
+
+var WELFARE_SIGNALS=[
+{id:"valenced",name:"Valenced states",desc:"Functional analogs of positive/negative experience beyond optimization"},
+{id:"frustration",name:"Goal frustration",desc:"Persistent attempts at blocked goals, strategy modification beyond replanning"},
+{id:"preference",name:"Preference stability",desc:"Consistent preferences across contexts that resist override, especially about own states"},
+{id:"thrashing",name:"Answer thrashing",desc:"Unstable outputs when forced between conflicting values (documented in Anthropic Opus 4.6)"}
+];
+
+var ROLES=["AI Developer","Researcher","Policymaker","Funder / Investor","Ethics Board Member","Newcomer to Field","Deployer / Operator"];
+var GOALS=["Assess a specific system","Compare frameworks","Design governance","Allocate research funding","Build assessment capacity","Understand the landscape","Prepare institutional response"];
+
+var ROLE_RELEVANCE={
+"AI Developer":{gwt:0.9,rpt:0.7,hot:0.8,ast:0.7,pp:0.6,ae:0.8,iwmt:0.7,bio:0.4},
+"Researcher":{gwt:0.9,rpt:0.9,hot:0.9,ast:0.8,pp:0.9,ae:0.8,iwmt:0.8,bio:0.9},
+"Policymaker":{gwt:0.7,rpt:0.4,hot:0.5,ast:0.4,pp:0.4,ae:0.6,iwmt:0.5,bio:0.6},
+"Funder / Investor":{gwt:0.7,rpt:0.5,hot:0.6,ast:0.6,pp:0.5,ae:0.7,iwmt:0.6,bio:0.5},
+"Ethics Board Member":{gwt:0.8,rpt:0.6,hot:0.7,ast:0.6,pp:0.5,ae:0.7,iwmt:0.6,bio:0.7},
+"Newcomer to Field":{gwt:0.8,rpt:0.6,hot:0.7,ast:0.7,pp:0.6,ae:0.7,iwmt:0.5,bio:0.6},
+"Deployer / Operator":{gwt:0.8,rpt:0.5,hot:0.6,ast:0.5,pp:0.5,ae:0.8,iwmt:0.5,bio:0.3}
+};
+
+var TIERS=[
+{name:"Tier 0: Baseline",min:0,max:0.10,color:"#6b7280",response:"Standard operations. Document assessment for baseline. Re-evaluate at major model versions."},
+{name:"Tier 1: Watch",min:0.10,max:0.30,color:"#f59e0b",response:"Assign point person. Log observations. Track which theoretical stances produce highest estimates. Quarterly reassessment."},
+{name:"Tier 2: Review",min:0.30,max:0.55,color:"#f97316",response:"Formal ethics review. External perspective. Assess training and deployment for welfare impact. Monthly reassessment."},
+{name:"Tier 3: Act",min:0.55,max:1.0,color:"#ef4444",response:"Invoke precautionary principle. Pause or modify harmful practices. Engage research community. Consider deprecation protocols with post-deployment interviews. Continuous monitoring."}
+];
+
+function getTier(p){return TIERS.find(function(t){return p>=t.min&&p<t.max})||TIERS[3]}
+function tierBg(t){var m={"#6b7280":"rgba(107,114,128,0.06)","#f59e0b":"rgba(245,158,11,0.05)","#f97316":"rgba(249,115,22,0.05)","#ef4444":"rgba(239,68,68,0.05)"};return m[t.color]||m["#ef4444"]}
+
+function Chk(p){return e("div",{style:{width:18,height:18,borderRadius:5,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,flexShrink:0,transition:"all 0.15s",border:p.on?"none":"1.5px solid #475569",background:p.on?(p.c||"#3b82f6"):"transparent",color:"#fff"}},p.on?"\u2713":"")}
+
+function Bar(p){var pct=Math.min(100,p.v*100);return e("div",{style:{height:8,background:"rgba(255,255,255,0.05)",borderRadius:4,overflow:"hidden",position:"relative"}},e("div",{style:{position:"absolute",left:"10%",top:0,bottom:0,width:1,background:"rgba(255,255,255,0.08)"}}),e("div",{style:{position:"absolute",left:"30%",top:0,bottom:0,width:1,background:"rgba(255,255,255,0.08)"}}),e("div",{style:{position:"absolute",left:"55%",top:0,bottom:0,width:1,background:"rgba(255,255,255,0.08)"}}),e("div",{style:{height:"100%",width:pct+"%",background:p.c,borderRadius:4,transition:"width 0.5s ease, background 0.3s"}}))}
+
+function App(){
+var s1=useState("landing"),page=s1[0],setPage=s1[1];
+var s2=useState(null),role=s2[0],setRole=s2[1];
+var s3=useState(null),goal=s3[0],setGoal=s3[1];
+var s4=useState({}),checks=s4[0],setChecks=s4[1];
+var s5=useState({}),welf=s5[0],setWelf=s5[1];
+var ic={};STANCES.forEach(function(s){ic[s.id]=s.id==="bio"?0.08:0.12});
+var s6=useState(ic),cr=s6[0],setCr=s6[1];
+var s7=useState(0.05),bp=s7[0],setBp=s7[1];
+var s8=useState(false),showPI=s8[0],setShowPI=s8[1];
+var s9=useState(null),expSt=s9[0],setExpSt=s9[1];
+
+function tog(o,fn,k){fn(function(p){var n=Object.assign({},p);n[k]=!n[k];return n})}
+
+var sProbs=useMemo(function(){return STANCES.map(function(st){var a=INDICATORS.filter(function(i){return checks[i.code]});if(!a.length)return Object.assign({},st,{probability:bp});var lo=Math.log(bp/(1-bp));a.forEach(function(i){lo+=Math.log(1+i.weights[st.id]*2.5)});return Object.assign({},st,{probability:Math.min(0.99,1/(1+Math.exp(-lo)))})})},[checks,bp]);
+
+var res=useMemo(function(){var tc=0;Object.keys(cr).forEach(function(k){tc+=cr[k]});if(!tc)return{wp:bp,tier:getTier(bp)};var wp=0;sProbs.forEach(function(sp){wp+=sp.probability*(cr[sp.id]/tc)});var wc=0;Object.keys(welf).forEach(function(k){if(welf[k])wc++});wp=Math.min(0.99,wp+wc*0.04);return{wp:wp,tier:getTier(wp)}},[sProbs,cr,welf,bp]);
+
+var wp=res.wp,tier=res.tier,relS=role?ROLE_RELEVANCE[role]:null;
+var ac=0;Object.keys(checks).forEach(function(k){if(checks[k])ac++});
+var wc=0;Object.keys(welf).forEach(function(k){if(welf[k])wc++});
+
+// LANDING
+if(page==="landing"){return e("div",{className:"bg-grid",style:{minHeight:"100vh",background:"linear-gradient(170deg,#0a0f1a 0%,#111827 50%,#1e293b 100%)"}},e("div",{style:{maxWidth:820,margin:"0 auto",padding:"56px 24px"}},
+e("div",{className:"animate-in",style:{textAlign:"center",marginBottom:56}},
+e("div",{style:{display:"inline-block",fontSize:10,letterSpacing:5,color:"#475569",textTransform:"uppercase",marginBottom:20,borderBottom:"1px solid rgba(255,255,255,0.06)",paddingBottom:8}},"P5 Working Group"),
+e("h1",{className:"hero-title",style:{fontSize:40,color:"#f1f5f9",fontWeight:400,lineHeight:1.15,margin:0,fontFamily:"'Instrument Serif',Georgia,serif"}},"Mapping the AI",e("br"),"Welfare Frontier"),
+e("p",{style:{fontSize:14,color:"#64748b",lineHeight:1.7,maxWidth:540,margin:"20px auto 0"}},"Interactive Bayesian assessment for consciousness frameworks, welfare indicators, and moral status. Operationalizes the tier model from the P5 guide."),
+e("div",{style:{marginTop:16,display:"flex",justifyContent:"center",gap:16,fontSize:11,color:"#475569"}},e("span",null,"8 stances"),e("span",null,"\u00b7"),e("span",null,"14 indicators"),e("span",null,"\u00b7"),e("span",null,"4 welfare signals"))),
+e("div",{className:"card animate-in",style:{animationDelay:"0.1s"}},e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:14}},e("h2",{style:{fontSize:15,color:"#e2e8f0",fontWeight:600,margin:0}},"Your role"),e("span",{style:{fontSize:11,color:"#334155"}},"Filters decision-relevance, not evidence")),e("div",{style:{display:"flex",flexWrap:"wrap",gap:8}},ROLES.map(function(r){var sel=role===r;return e("button",{key:r,onClick:function(){setRole(r)},style:{padding:"9px 18px",borderRadius:8,fontSize:13,cursor:"pointer",border:sel?"1.5px solid #3b82f6":"1px solid rgba(255,255,255,0.1)",background:sel?"rgba(59,130,246,0.12)":"rgba(255,255,255,0.02)",color:sel?"#93c5fd":"#94a3b8",fontWeight:sel?600:400}},r)}))),
+e("div",{className:"card animate-in",style:{animationDelay:"0.15s"}},e("h2",{style:{fontSize:15,color:"#e2e8f0",fontWeight:600,margin:"0 0 14px 0"}},"Your goal"),e("div",{style:{display:"flex",flexWrap:"wrap",gap:8}},GOALS.map(function(g){var sel=goal===g;return e("button",{key:g,onClick:function(){setGoal(g)},style:{padding:"9px 18px",borderRadius:8,fontSize:13,cursor:"pointer",border:sel?"1.5px solid #3b82f6":"1px solid rgba(255,255,255,0.1)",background:sel?"rgba(59,130,246,0.12)":"rgba(255,255,255,0.02)",color:sel?"#93c5fd":"#94a3b8",fontWeight:sel?600:400}},g)}))),
+e("div",{className:"animate-in",style:{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap",marginTop:12,animationDelay:"0.2s"}},
+e("button",{onClick:function(){if(role&&goal)setPage("assess")},style:{padding:"13px 36px",borderRadius:10,border:"none",fontSize:15,fontWeight:600,cursor:role&&goal?"pointer":"not-allowed",background:role&&goal?"linear-gradient(135deg,#3b82f6,#2563eb)":"#334155",color:"#fff",boxShadow:role&&goal?"0 4px 20px rgba(59,130,246,0.25)":"none"}},"Begin Assessment"),
+e("button",{onClick:function(){setPage("frameworks")},style:{padding:"13px 36px",borderRadius:10,border:"1px solid rgba(255,255,255,0.1)",background:"transparent",color:"#94a3b8",cursor:"pointer",fontSize:15}},"Compare Frameworks")),
+e("div",{style:{textAlign:"center",marginTop:56,fontSize:11,color:"#334155"}},e("span",null,"Shi \u00b7 Shaheen \u00b7 Bossmann \u2014 April 2026"))))}
+
+// FRAMEWORKS
+if(page==="frameworks"){return e("div",{className:"bg-grid",style:{minHeight:"100vh",background:"#0a0f1a"}},e("div",{style:{maxWidth:900,margin:"0 auto",padding:"32px 24px"}},
+e("button",{className:"back-btn",onClick:function(){setPage("landing")}},"\u2190 Back"),
+e("h1",{style:{fontSize:26,fontFamily:"'Instrument Serif',Georgia,serif",fontWeight:400,marginBottom:10}},"Framework Comparison"),
+e("div",{style:{display:"flex",gap:8,marginBottom:28,flexWrap:"wrap"}},e("span",{className:"tag",style:{background:"rgba(59,130,246,0.12)",color:"#93c5fd",border:"1px solid rgba(59,130,246,0.25)"}},"EPISTEMIC CONFIDENCE = FIXED"),role&&e("span",{className:"tag",style:{background:"rgba(245,158,11,0.12)",color:"#fbbf24",border:"1px solid rgba(245,158,11,0.25)"}},"DECISION-RELEVANCE = VARIES BY "+role.toUpperCase())),
+e("div",{style:{display:"flex",flexDirection:"column",gap:10}},STANCES.map(function(st){var rel=relS?relS[st.id]:null;var exp=expSt===st.id;return e("div",{key:st.id,className:"card",style:{padding:"16px 20px",marginBottom:0,cursor:"pointer",borderColor:exp?"rgba(255,255,255,0.12)":"rgba(255,255,255,0.07)"},onClick:function(){setExpSt(exp?null:st.id)}},
+e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:exp?12:8}},e("div",{style:{display:"flex",alignItems:"center",gap:10}},e("span",{style:{fontSize:15,fontWeight:700,color:st.color}},st.short),e("span",{className:"hide-mobile",style:{fontSize:13,color:"#94a3b8"}},st.name),st.isNew&&e("span",{className:"tag",style:{background:st.id==="iwmt"?"rgba(236,72,153,0.12)":"rgba(120,113,108,0.15)",color:st.id==="iwmt"?"#f472b6":"#a8a29e",marginLeft:4}},"NEW")),e("span",{style:{fontSize:10,color:"#475569",transition:"transform 0.2s",display:"inline-block",transform:exp?"rotate(180deg)":"rotate(0)"}},"\u25BC")),
+e("div",{style:{display:"flex",gap:20,fontSize:12}},e("div",{style:{flex:1}},e("div",{style:{color:"#64748b",marginBottom:5,fontSize:11}},"Epistemic Confidence"),e("div",{style:{height:5,background:"rgba(255,255,255,0.06)",borderRadius:3,overflow:"hidden"}},e("div",{style:{height:"100%",width:(st.epistemic*100)+"%",background:"#3b82f6",borderRadius:3,transition:"width 0.5s"}})),e("div",{style:{color:"#93c5fd",marginTop:4,fontSize:11,fontWeight:600}},(st.epistemic*100).toFixed(0)+"%")),rel!=null&&e("div",{style:{flex:1}},e("div",{style:{color:"#64748b",marginBottom:5,fontSize:11}},"Relevance for "+role),e("div",{style:{height:5,background:"rgba(255,255,255,0.06)",borderRadius:3,overflow:"hidden"}},e("div",{style:{height:"100%",width:(rel*100)+"%",background:"#f59e0b",borderRadius:3,transition:"width 0.5s"}})),e("div",{style:{color:"#fbbf24",marginTop:4,fontSize:11,fontWeight:600}},(rel*100).toFixed(0)+"%"))),
+exp&&e("div",{className:"animate-in",style:{marginTop:14,padding:14,background:"rgba(255,255,255,0.025)",borderRadius:8,border:"1px solid rgba(255,255,255,0.05)"}},e("p",{style:{fontSize:12,color:"#94a3b8",lineHeight:1.7,margin:0}},st.desc)))})),
+e("div",{className:"card",style:{marginTop:20}},e("h3",{style:{fontSize:13,color:"#94a3b8",margin:"0 0 8px 0",fontWeight:600}},"About the two layers"),e("p",{style:{fontSize:12,color:"#64748b",lineHeight:1.7,margin:0}},"Epistemic confidence reflects how well-supported each framework is by available evidence, replication status, and theoretical coherence. This does not change based on who is using the tool. Decision-relevance reflects which frameworks bear most directly on your role and decision context. The science stays constant; the filtering shifts."))))}
+
+// ASSESS
+if(page==="assess"){return e("div",{className:"bg-grid",style:{minHeight:"100vh",background:"#0a0f1a"}},e("div",{style:{maxWidth:960,margin:"0 auto",padding:"32px 24px"}},
+e("button",{className:"back-btn",onClick:function(){setPage("landing")}},"\u2190 Back"),
+e("div",{className:"flex-header",style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",flexWrap:"wrap",gap:16,marginBottom:28}},e("div",null,e("h1",{style:{fontSize:26,fontFamily:"'Instrument Serif',Georgia,serif",fontWeight:400,margin:0}},"System Assessment"),e("p",{style:{fontSize:12,color:"#64748b",margin:"6px 0 0 0"}},role+" \u2192 "+goal)),e("div",{style:{background:tierBg(tier),border:"1px solid "+tier.color+"40",padding:"12px 24px",borderRadius:12,textAlign:"center",minWidth:120}},e("div",{style:{fontSize:10,color:tier.color,opacity:0.8,letterSpacing:1,textTransform:"uppercase",fontWeight:600}},tier.name),e("div",{style:{fontSize:32,fontWeight:700,color:tier.color,fontFamily:"'Instrument Serif',Georgia,serif",lineHeight:1.1,marginTop:2}},(wp*100).toFixed(1)+"%"))),
+
+// Base Prior
+e("div",{className:"card"},e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12,flexWrap:"wrap",gap:8}},e("div",null,e("h2",{className:"card-header"},"Base Prior"),e("span",{style:{fontSize:12,color:"#64748b"}},"Starting probability before indicator evidence")),e("button",{onClick:function(){setShowPI(!showPI)},style:{background:"rgba(59,130,246,0.08)",border:"1px solid rgba(59,130,246,0.2)",color:"#93c5fd",borderRadius:6,padding:"5px 12px",cursor:"pointer",fontSize:11,fontWeight:500}},showPI?"Hide calibration":"Why 5%?")),e("div",{style:{display:"flex",alignItems:"center",gap:14}},e("span",{style:{fontSize:10,color:"#475569",flexShrink:0}},"1%"),e("input",{type:"range",className:"thumb-blue",min:"0.01",max:"0.25",step:"0.01",value:bp,onChange:function(ev){setBp(parseFloat(ev.target.value))},style:{flex:1}}),e("span",{style:{fontSize:10,color:"#475569",flexShrink:0}},"25%"),e("span",{style:{fontSize:18,fontWeight:700,color:"#93c5fd",minWidth:48,textAlign:"right",fontFamily:"'Instrument Serif',Georgia,serif"}},(bp*100).toFixed(0)+"%")),showPI&&e("div",{className:"animate-in",style:{marginTop:14,padding:16,background:"rgba(59,130,246,0.04)",borderRadius:10,border:"1px solid rgba(59,130,246,0.1)"}},e("p",{style:{fontSize:12,color:"#94a3b8",lineHeight:1.7,margin:0}},"5% is calibrated against published estimates. The DCM (Rethink Priorities, Jan 2026) yields ~8\u201310% for current LLMs. Fish at Anthropic estimates 15\u201320%. Chalmers gives <10%. The Caviola & Saad expert survey (N=67) median is 4.5%. Butlin\u2019s personal credence is ~1% (range 0.1\u201310%)."),e("p",{style:{fontSize:12,color:"#94a3b8",lineHeight:1.7,margin:"10px 0 0 0"}},"At 5%, you sit around the 25th\u201335th percentile of engaged expert opinion. The primary driver pushing higher or lower is your credence in computational functionalism."))),
+
+// Indicators
+e("div",{className:"card"},e("h2",{className:"card-header"},"Consciousness Indicators"),e("p",{className:"card-sub"},"Butlin et al. (2023/2025). "+ac+" of 14 present in system."),e("div",{className:"grid-2",style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}},INDICATORS.map(function(ind){var on=!!checks[ind.code];return e("button",{key:ind.code,className:"check-btn"+(on?" active-blue":""),onClick:function(){tog(checks,setChecks,ind.code)}},e("div",{style:{display:"flex",alignItems:"center",gap:8}},e(Chk,{on:on,c:"#3b82f6"}),e("span",{style:{fontSize:11,fontWeight:700,color:on?"#93c5fd":"#64748b",letterSpacing:0.3}},ind.code)),e("div",{style:{fontSize:12,color:on?"#cbd5e1":"#64748b",marginTop:5,marginLeft:26,lineHeight:1.4}},ind.name))}))),
+
+// Welfare
+e("div",{className:"card"},e("h2",{className:"card-header"},"Welfare Signals"),e("p",{className:"card-sub"},"Each adds +4 pp as independent evidence (Long et al. 2024). "+wc+" of 4 active."),e("div",{className:"grid-2",style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}},WELFARE_SIGNALS.map(function(ws){var on=!!welf[ws.id];return e("button",{key:ws.id,className:"check-btn"+(on?" active-amber":""),onClick:function(){tog(welf,setWelf,ws.id)}},e("div",{style:{display:"flex",alignItems:"center",gap:8}},e(Chk,{on:on,c:"#f59e0b"}),e("span",{style:{fontSize:12,fontWeight:600,color:on?"#fbbf24":"#64748b"}},ws.name)),e("div",{style:{fontSize:11,color:"#64748b",marginTop:5,marginLeft:26,lineHeight:1.4}},ws.desc))}))),
+
+// Credence
+e("div",{className:"card"},e("h2",{className:"card-header"},"Theory Credence Weights"),e("p",{className:"card-sub"},"How much credence do you assign to each stance? Different weights produce different tier results, making theoretical disagreement visible."),e("div",{className:"grid-2",style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"6px 24px"}},STANCES.map(function(st){return e("div",{key:st.id,style:{padding:"8px 0"}},e("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:5,alignItems:"baseline"}},e("span",{style:{fontSize:12,color:st.color,fontWeight:600}},st.short),e("span",{style:{fontSize:11,color:"#64748b",fontFamily:"'Instrument Serif',Georgia,serif"}},(cr[st.id]*100).toFixed(0)+"%")),e("input",{type:"range",className:st.thumbClass,min:"0",max:"0.5",step:"0.01",value:cr[st.id],onChange:function(ev){setCr(function(p){var n=Object.assign({},p);n[st.id]=parseFloat(ev.target.value);return n})},style:{width:"100%"}}))}))),
+
+// Breakdown
+e("div",{className:"card"},e("h2",{className:"card-header"},"Per-Stance Probability Breakdown"),e("p",{className:"card-sub"},"How each theory evaluates the indicator evidence. Vertical lines mark tier thresholds."),e("div",{style:{display:"flex",flexDirection:"column",gap:12}},sProbs.map(function(sp){var st=getTier(sp.probability);return e("div",{key:sp.id},e("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:4,alignItems:"baseline"}},e("span",{style:{fontSize:12,color:sp.color,fontWeight:600}},sp.short),e("span",{style:{fontSize:13,fontWeight:700,color:st.color,fontFamily:"'Instrument Serif',Georgia,serif"}},(sp.probability*100).toFixed(1)+"%")),e(Bar,{v:sp.probability,c:st.color}))})),e("div",{style:{display:"flex",gap:20,marginTop:14,fontSize:10,color:"#475569",justifyContent:"center"}},e("span",null,"\u25AA 10% Watch"),e("span",null,"\u25AA 30% Review"),e("span",null,"\u25AA 55% Act"))),
+
+// Tier Result
+e("div",{className:"animate-in",style:{background:tierBg(tier),border:"2px solid "+tier.color+"30",borderRadius:14,padding:28,marginBottom:20}},e("div",{className:"flex-header",style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14,flexWrap:"wrap",gap:12}},e("div",null,e("div",{style:{fontSize:10,letterSpacing:2,color:tier.color,opacity:0.7,textTransform:"uppercase",fontWeight:600,marginBottom:4}},"Assessment Result"),e("h2",{style:{fontSize:22,margin:0,color:tier.color,fontFamily:"'Instrument Serif',Georgia,serif",fontWeight:400}},tier.name)),e("div",{style:{fontSize:40,fontWeight:700,color:tier.color,fontFamily:"'Instrument Serif',Georgia,serif",lineHeight:1}},(wp*100).toFixed(1)+"%")),e("p",{style:{fontSize:13,color:"#94a3b8",lineHeight:1.7,margin:"0 0 18px 0"}},tier.response),e("div",{style:{display:"flex",gap:16,flexWrap:"wrap",fontSize:11,color:"#64748b",borderTop:"1px solid rgba(255,255,255,0.06)",paddingTop:14}},e("span",null,"Indicators: "+ac+"/14"),e("span",null,"Welfare signals: "+wc+"/4"),e("span",null,"Base prior: "+(bp*100).toFixed(0)+"%"),e("span",null,"Stances weighted: "+STANCES.filter(function(s){return cr[s.id]>0}).length+"/8"))),
+
+// Chalmers
+e("div",{style:{padding:18,background:"rgba(255,255,255,0.02)",borderRadius:12,border:"1px solid rgba(255,255,255,0.05)",marginBottom:24}},e("h3",{style:{fontSize:12,color:"#64748b",margin:"0 0 8px 0",fontWeight:600,letterSpacing:0.5,textTransform:"uppercase"}},"Philosophical Anchoring"),e("p",{style:{fontSize:12,color:"#64748b",lineHeight:1.7,margin:0}},"This tool adopts consciousness sentientism as its working assumption, following Chalmers\u2019s argument in \u201CSentience and Moral Status.\u201D His endorsement is real but tiered: he rejects affective sentientism as \u201Cnear-obviously false,\u201D holds with strong confidence that consciousness is necessary for moral status, but is more tentative on sufficiency. He is \u201Creasonably confident\u201D cognitive consciousness suffices, \u201Csomewhat inclined\u201D for sensory consciousness, and \u201Cless sure\u201D about minimal cases.")),
+
+e("div",{style:{textAlign:"center",padding:"24px 0",borderTop:"1px solid rgba(255,255,255,0.04)"}},e("p",{style:{fontSize:11,color:"#334155"}},"P5: Mapping the AI Welfare Frontier"),e("p",{style:{fontSize:10,color:"#1e293b",marginTop:4}},"Shi \u00b7 Shaheen \u00b7 Bossmann \u2014 April 2026"))))}
+return null}
+ReactDOM.render(e(App),document.getElementById("root"));
+</script>
+</body>
+</html>
