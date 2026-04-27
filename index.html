@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Mapping the AI Welfare Frontier</title>
 <meta name="description" content="A structured onboarding resource for researchers, practitioners, and policymakers engaging with AI welfare. Theories, vocabulary, and the published range of expert views."/>
-<meta name="author" content="Lydia Shi, Arsam Shaheen, Julia Bossmann"/>
+<meta name="author" content="Arsam Shaheen, Lydia Shi, Julia Bossmann"/>
 <meta name="theme-color" content="#fafaf9"/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231d3557'/%3E%3Ctext x='16' y='22' font-family='Inter,system-ui,sans-serif' font-size='15' font-weight='700' fill='white' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -547,8 +547,8 @@ function TopBar(p){
         e("span",{className:"brand-mark","aria-hidden":"true"},"M"),
         e("span",null,
           e("div",{className:"brand-name"},"Mapping the AI Welfare Frontier"),
-          e("div",{className:"brand-sub"},"Shi \u00B7 Shaheen \u00B7 Bossmann"))),
-      e("div",{className:"top-meta"},"Sentient Futures Summit \u00B7 2026")));
+          e("div",{className:"brand-sub"},"Shaheen \u00B7 Shi \u00B7 Bossmann"))),
+      e("div",{className:"top-meta"},"AI Welfare Onboarding Resource \u00B7 2026")));
 }
 
 // ─── APP ─────────────────────────────────────────────────────────────────
@@ -941,10 +941,8 @@ function PageNav(cur,go){
 
 function Footer(){
   return e("footer",{className:"footer"},
-    e("span",{className:"footer-authors"},"Lydia Shi \u00B7 Arsam Shaheen \u00B7 Julia Bossmann"),
-    e("span",{className:"footer-context"},"Presented at ",
-      e("a",{href:"https://www.sentientfutures.ai",target:"_blank",rel:"noopener noreferrer"},"Sentient Futures Summit"),
-      " \u00B7 2026"));
+    e("span",{className:"footer-authors"},"Arsam Shaheen \u00B7 Lydia Shi \u00B7 Julia Bossmann"),
+    e("span",{className:"footer-context"},"2026"));
 }
 
 ReactDOM.render(e(App),document.getElementById("root"));
