@@ -271,8 +271,51 @@ a.src-link:hover{border-bottom-color:var(--accent)}
 .theory-note li strong{color:var(--ink);font-weight:600}
 
 .gameability-note{margin-top:10px;padding:12px 16px;background:#fafaf8;border-radius:6px;border:1px dashed rgba(120,113,108,0.3)}
+
+.map-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--ink);margin:0 0 10px 0;letter-spacing:-0.01em}
+.map-lede{font-family:'Source Serif 4',Georgia,serif;font-size:13.5px;line-height:1.65;color:var(--dim);margin:0 0 18px 0}
+.map-caption{font-family:'Source Serif 4',Georgia,serif;font-size:12px;line-height:1.6;color:var(--muted);margin:18px 0 0 0;font-style:italic}
+
+.gameability-explainer{background:#fafaf8;border-left:3px solid var(--accent);border-radius:4px;padding:16px 18px;margin:0 0 22px 0}
+.gx-headline{font-family:'Source Serif 4',Georgia,serif;font-size:14px;line-height:1.6;color:var(--ink);margin:0 0 12px 0}
+.gx-example{font-family:'Source Serif 4',Georgia,serif;font-size:13.5px;line-height:1.65;color:var(--dim);margin:0 0 12px 0;padding:10px 14px;background:#fff;border-radius:4px;border:1px solid var(--rule)}
+.gx-takeaway{font-family:'Source Serif 4',Georgia,serif;font-size:13.5px;line-height:1.65;color:var(--ink);margin:0 0 10px 0}
+.gx-source{font-family:'Source Serif 4',Georgia,serif;font-size:12.5px;line-height:1.6;color:var(--muted);margin:0;font-style:italic}
+
+.lane-chart{display:flex;flex-direction:column;gap:14px}
+.lane{padding:14px 16px 12px 16px;border-radius:6px;border:1px solid var(--rule)}
+.lane-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.lane-dot{display:inline-block;width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.lane-title{font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;color:var(--ink);letter-spacing:-0.005em}
+.lane-count{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--muted);margin-left:2px}
+.lane-sub{font-family:'Source Serif 4',Georgia,serif;font-size:12.5px;line-height:1.55;color:var(--dim);margin-top:3px}
+.lane-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.ind-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:#fff;border:1px solid var(--rule);border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:border-color 0.15s,box-shadow 0.15s,transform 0.05s;color:inherit}
+.ind-pill:hover{border-color:var(--accent-border);box-shadow:0 1px 3px rgba(29,53,87,0.08)}
+.ind-pill:active{transform:translateY(1px)}
+.ind-pill:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ind-pill-code{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:0.04em;background:rgba(29,53,87,0.06);padding:2px 6px;border-radius:3px;flex-shrink:0}
+.ind-pill-name{font-size:13px;font-weight:500;color:var(--ink)}
+.ind-pill-fam{font-size:11.5px;color:var(--muted);font-style:italic;margin-left:auto;padding-left:6px}
+@media(max-width:720px){
+  .ind-pill-fam{display:none}
+  .ind-pill{min-height:44px}
+}
 .gameability-label{font-size:10.5px;font-weight:600;letter-spacing:0.06em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:10px}
 .gameability-text{font-size:12.5px;color:var(--dim);line-height:1.6;margin:0;font-family:'Source Serif 4',Georgia,serif}
+.gameability-cite{font-size:11.5px;color:var(--muted);line-height:1.5;margin:8px 0 0 0;font-family:'Source Serif 4',Georgia,serif}
+.cite-list{font-size:12.5px;color:var(--dim);line-height:1.6;margin:14px 0 0 0;font-family:'Source Serif 4',Georgia,serif;padding-top:10px;border-top:1px solid var(--rule)}
+.cite-list strong{color:var(--ink)}
+
+.abbr-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin-top:6px}
+.abbr-item{display:flex;align-items:center;gap:10px;padding:6px 0;font-family:'Source Serif 4',Georgia,serif;font-size:13px;color:var(--dim);border-bottom:1px solid rgba(232,230,220,0.5)}
+.abbr-item:last-child,.abbr-item:nth-last-child(2){border-bottom:none}
+.abbr-item strong{color:var(--ink);font-weight:500;flex:1;font-family:'Inter',sans-serif;font-size:13px}
+.abbr-tag{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:0.04em;color:var(--accent);background:var(--accent-light,rgba(29,53,87,0.08));padding:2px 8px;border-radius:3px;flex-shrink:0;border:1px solid rgba(29,53,87,0.12)}
+@media(max-width:720px){
+  .abbr-grid{grid-template-columns:1fr}
+  .abbr-item{border-bottom:1px solid rgba(232,230,220,0.5)!important}
+}
 .game-chip{display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.02em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid}
 .game-chip.game-low{background:rgba(74,93,71,0.08);color:#3d4f3a;border-color:rgba(74,93,71,0.25)}
 .game-chip.game-moderate{background:rgba(133,77,14,0.06);color:#854d0e;border-color:rgba(133,77,14,0.25)}
@@ -322,6 +365,9 @@ a.src-link:hover{border-bottom-color:var(--accent)}
   .top-meta{font-size:10px}
   .card{padding:22px}
   .page,.page-wide{padding:28px 18px 40px}
+  .chev{font-size:18px;padding:4px;margin-left:6px}
+  .exp-card{padding:16px 18px!important}
+  .exp-card button{min-height:44px}
 }
 
 @media print{
@@ -366,175 +412,95 @@ function parseHash(){
 
 var STANCES=[
 {id:"gwt",name:"Global Workspace Theory",short:"GWT",
- substrate:"neutral",tested:"yes",
  cite:"Baars 1988; Dehaene 2014; Cogitate 2025",
+ cite_links:[{label:"Cogitate 2025 (Nature)",url:"https://doi.org/10.1038/s41586-025-08888-1"},{label:"Dehaene 2017",url:"https://doi.org/10.1126/science.aan8871"}],
  short_desc:"Consciousness arises when information is broadcast across a limited-capacity workspace accessible to specialised modules.",
  long_desc:"Formulated by Bernard Baars and developed experimentally by Stanislas Dehaene and colleagues. On this account, information becomes conscious when it gains access to a limited-capacity broadcast system available to many downstream processes. The theory has the most developed implementation literature of any major consciousness theory. The Cogitate Consortium adversarial collaboration (Nature, 642:133\u2013142, 2025) tested predictions of Global Neuronal Workspace Theory against Integrated Information Theory and partially supported GNWT while challenging specific predictions. Substrate-neutral."},
 {id:"rpt",name:"Recurrent Processing Theory",short:"RPT",
- substrate:"ambiguous",tested:"partial",
  cite:"Lamme 2006, 2020",
+ cite_links:[{label:"Lamme 2006",url:"https://doi.org/10.1016/j.tics.2006.09.001"}],
  short_desc:"Recurrent feedback loops within neural circuits are necessary and sufficient for phenomenal consciousness.",
  long_desc:"Victor Lamme's theory holds that recurrent feedforward\u2013feedback processing within neural circuits is necessary and sufficient for phenomenal consciousness. On this view, standard feedforward networks and pure transformer inference are disqualified. Substrate status is ambiguous in the primary literature: the theory is grounded in biological neural dynamics, but its computational description is in principle substrate-neutral."},
 {id:"hot",name:"Higher-Order Theories",short:"HOT",
- substrate:"neutral",tested:"partial",
  cite:"Rosenthal 2005; Lau & Rosenthal 2011",
+ cite_links:[{label:"Lau & Rosenthal 2011",url:"https://doi.org/10.1016/j.tics.2011.05.009"},{label:"Butlin et al. 2025",url:"https://doi.org/10.1016/j.tics.2025.10.011"}],
  short_desc:"A mental state becomes conscious when the system forms a concurrent representation of that state.",
  long_desc:"A family of theories associated with David Rosenthal and Hakwan Lau. A mental state becomes conscious when the system forms a concurrent, non-inferential higher-order representation of it. Current large language models exhibit partial metacognitive capabilities such as calibrated uncertainty and self-correction, though the extent to which this constitutes genuine higher-order representation remains debated. Recent empirical work on LLM metacognition is surveyed in Butlin et al. (2025). Substrate-neutral."},
 {id:"ast",name:"Attention Schema Theory",short:"AST",
- substrate:"neutral",tested:"partial",
  cite:"Graziano 2013; Wilterson & Graziano 2021",
+ cite_links:[{label:"Wilterson & Graziano 2021",url:"https://doi.org/10.1073/pnas.2102421118"}],
  short_desc:"Consciousness is the brain's internal model of its own attentional processes.",
  long_desc:"Michael Graziano's theory holds that the brain constructs a simplified internal model of its own attentional processes, and that this model is what we call consciousness. Wilterson and Graziano (2021, PNAS 118:e2102421118) showed that an artificial deep Q-learning agent equipped with an attention schema outperformed one without, providing one of the clearest direct empirical tests of the theory in a computational system. Among the major theories, AST is probably the most directly engineerable. Substrate-neutral."},
 {id:"pp",name:"Predictive Processing",short:"PP",
- substrate:"contested",tested:"partial",
  cite:"Clark 2013; Seth 2021; Laukkonen et al. 2025",
+ cite_links:[{label:"Laukkonen et al. 2025",url:"https://doi.org/10.1016/j.neubiorev.2025.106296"}],
  short_desc:"Perception and, on some accounts, consciousness as variational Bayesian inference.",
  long_desc:"A framework treating perception as variational Bayesian inference, extended by some theorists into an account of consciousness. Andy Clark developed the general computational story. Anil Seth's interoceptive inference account and the Laukkonen, Friston & Chandaria \u201CBeautiful Loop\u201D paper (2025, Neuroscience & Biobehavioral Reviews 176:106296) build consciousness-specific claims on top of it. Seth has moved toward strong embodiment constraints, arguing consciousness requires an organism modelling its own biological states. Substrate status is contested within the predictive processing community."},
 {id:"ae",name:"Agency and Embodiment",short:"AE",
- substrate:"neutral",tested:"partial",
  cite:"Long, Sebo et al. 2024",
+ cite_links:[{label:"Long, Sebo et al. 2024",url:"https://arxiv.org/abs/2411.00986"}],
  short_desc:"Robust agency as an independent route to moral patienthood, not requiring consciousness.",
  long_desc:"Long, Sebo, and colleagues (2024) argue for robust agency as a second, independent route to moral patienthood that does not require consciousness. The argument rests on desire-satisfaction welfare theory: a system with desires has a life that goes better or worse as those desires are satisfied or frustrated. Three levels are distinguished: intentional agency (goals via beliefs and desires), reflective agency (endorsement of one's own mental states), and rational agency (principled assessment of beliefs and desires). Particularly relevant for reinforcement learning systems and language agents."},
 {id:"iwmt",name:"Integrated World Modelling Theory",short:"IWMT",
- substrate:"neutral-with-embodiment",tested:"theoretical",
  cite:"Safron 2020, 2022",
+ cite_links:[{label:"Safron 2020",url:"https://doi.org/10.3389/frai.2020.00030"}],
  short_desc:"Synthesis of Integrated Information Theory and Global Neuronal Workspace under the Free Energy Principle.",
  long_desc:"Adam Safron's synthesis of Integrated Information Theory and Global Neuronal Workspace Theory within Karl Friston's Free Energy Principle. The theory maps onto machine learning architectures: predictive hierarchies correspond to variational autoencoders, multimodal integration to shared latent spaces, spatial and somatic modelling to graph neural networks. Substrate-neutral in principle but requires embodied agency, which excludes pure text-processing systems."},
 {id:"bio",name:"Biological Naturalism",short:"BioNat",
- substrate:"biological-only",tested:"theoretical",
  cite:"Searle 1992; Seth 2025 (Noema)",
+ cite_links:[{label:"Seth 2025 (Noema)",url:"https://www.noemamag.com/conscious-ai-is-the-second-coming-of-snake-oil/"}],
  short_desc:"Consciousness depends on being alive; phenomenal selfhood requires interoceptive inference about bodily states.",
  long_desc:"Associated historically with John Searle and argued most forcefully in recent work by Anil Seth. Consciousness on this view depends on being alive, with phenomenal selfhood requiring interoceptive inference about bodily states. Seth (2025, Noema) argues that computational functionalism is increasingly shakily supported and that brains are not Turing machines made of meat in any sense that matters for consciousness. Serves as a principled anchor for very low probability estimates of digital consciousness."}
 ];
 
 var INDICATORS=[
  {code:"RPT-1",name:"Algorithmic recurrence",family:"RPT",
-  desc:"The system applies the same computational operation repeatedly, analogous to feedback loops in biological neural circuits.",
-  gameability:{level:"moderate",note:"Recurrent structure can be built into architectures, but genuine recurrent processing over relevant timescales is harder to satisfy than its surface-level form. Butlin et al. 2025 note this kind of property as less gameable than purely architectural indicators that can be satisfied in isolation."},
-  theories:[
-    {stance:"RPT",note:"Treated as a necessary condition for phenomenal consciousness."},
-    {stance:"IWMT",note:"Required for the recurrent belief-updating the theory posits."}
-  ]},
+  desc:"The system applies the same computational operation repeatedly, analogous to feedback loops in biological neural circuits."},
  {code:"RPT-2",name:"Integrated perceptual representations",family:"RPT",
-  desc:"The system forms organised representations of perceptual scenes in which parts relate coherently to wholes, for example the perception of Kanizsa illusions.",
-  gameability:{level:"moderate",note:"Requires integrative perceptual processing that is harder to demonstrate in purely text-based systems. More easily satisfied superficially in vision-language models, where the underlying integration is less clear."},
-  theories:[
-    {stance:"RPT",note:"A core diagnostic property of recurrent perceptual processing."},
-    {stance:"GWT",note:"Prerequisite for integrated representations reaching the workspace."}
-  ]},
+  desc:"The system forms organised representations of perceptual scenes in which parts relate coherently to wholes, for example the perception of Kanizsa illusions."},
  {code:"GWT-1",name:"Parallel specialised modules",family:"GWT",
-  desc:"The system runs multiple task-specific subsystems concurrently.",
-  gameability:{level:"high",note:"An architectural feature that can be designed into a system directly. Butlin et al. 2025 note that purely architectural indicators like this one are most easily satisfied without the corresponding dynamics that matter for consciousness."},
-  theories:[
-    {stance:"GWT",note:"A precondition for the global broadcast the theory requires."},
-    {stance:"IWMT",note:"Treated as necessary for integrating distributed world-model components."}
-  ]},
+  desc:"The system runs multiple task-specific subsystems concurrently."},
  {code:"GWT-2",name:"Limited capacity workspace",family:"GWT",
-  desc:"The system has a bottleneck in information flow requiring selective attention.",
-  gameability:{level:"high",note:"Bottleneck architectures are a well-known engineering pattern. Satisfaction of this indicator in isolation does not establish the broadcast dynamics the theory takes to matter."},
-  theories:[
-    {stance:"GWT",note:"Central to the theory's characterisation of conscious access."},
-    {stance:"AST",note:"A limited-capacity bottleneck is also where the attention schema operates."}
-  ]},
+  desc:"The system has a bottleneck in information flow requiring selective attention."},
  {code:"GWT-3",name:"Global broadcast",family:"GWT",
-  desc:"Information in the workspace is made available to all modules.",
-  gameability:{level:"high",note:"A broadcast pattern is straightforward to implement. The demanding question under Butlin et al. 2025 is whether the broadcast plays the integrative role that GWT takes to be consciousness-relevant, not whether the pattern is present."},
-  theories:[
-    {stance:"GWT",note:"The core commitment of Global Workspace Theory."},
-    {stance:"IWMT",note:"Required for world-model integration to reach action-relevant subsystems."}
-  ]},
+  desc:"Information in the workspace is made available to all modules."},
  {code:"GWT-4",name:"State-dependent attention",family:"GWT",
-  desc:"The workspace queries modules in succession for complex tasks.",
-  gameability:{level:"high",note:"Sequential attention over modules can be implemented with routing mechanisms. As with the other GWT indicators, it is the dynamics rather than the structural feature that matter under the theory."},
-  theories:[
-    {stance:"GWT",note:"A dynamic property of GWT implementations."},
-    {stance:"AST",note:"Implies an attentional control system of the kind AST models."}
-  ]},
+  desc:"The workspace queries modules in succession for complex tasks."},
  {code:"HOT-1",name:"Generative or top-down perception",family:"HOT",
-  desc:"The system uses top-down signals or noisy perception modules.",
-  gameability:{level:"high",note:"Top-down components are standard in modern architectures. The Butlin et al. 2025 criterion of whether the system 'cannot easily be designed without also creating consciousness' is not clearly met by this indicator alone."},
-  theories:[
-    {stance:"HOT",note:"Connects to the higher-order representation required for conscious access."},
-    {stance:"PP",note:"Central to the predictive-processing account of perception."}
-  ]},
+  desc:"The system uses top-down signals or noisy perception modules."},
  {code:"HOT-2",name:"Metacognitive monitoring",family:"HOT",
-  desc:"The system distinguishes reliable perceptual representations from noise.",
-  gameability:{level:"high-in-llms",note:"Especially gameable in systems trained on human-produced text. LLM training data is saturated with human metacognitive language, so surface behavioural signatures of metacognition do not reliably indicate the underlying second-order representational structure the theory requires."},
-  theories:[
-    {stance:"HOT",note:"A defining requirement: the system must represent its own first-order states."},
-    {stance:"AE",note:"Enables reflective agency in the Long et al. three-level hierarchy."}
-  ]},
+  desc:"The system distinguishes reliable perceptual representations from noise."},
  {code:"HOT-3",name:"General belief-action system",family:"HOT",
-  desc:"Agency guided by beliefs, with a disposition to update from metacognitive signals.",
-  gameability:{level:"moderate",note:"The belief-updating disposition is harder to fake in systems that operate over extended interactions. In single-turn text generation it is largely indistinguishable from trained response patterns."},
-  theories:[
-    {stance:"HOT",note:"Connects higher-order monitoring to action selection."},
-    {stance:"AE",note:"Maps onto intentional agency as characterised by Long et al. (2024)."}
-  ]},
+  desc:"Agency guided by beliefs, with a disposition to update from metacognitive signals."},
  {code:"HOT-4",name:"Quality space",family:"HOT",
-  desc:"Sparse and smooth coding generating a continuous representational space.",
-  gameability:{level:"uncertain",note:"An abstract representational property that current interpretability methods can only partly assess. Neither clearly gameable nor clearly robust; bears on consciousness through its role in the theory, not as a stand-alone test."},
-  theories:[
-    {stance:"HOT",note:"Accounts for phenomenal qualities under higher-order theories."}
-  ]},
+  desc:"Sparse and smooth coding generating a continuous representational space."},
  {code:"AST-1",name:"Attention schema",family:"AST",
-  desc:"A predictive model representing and controlling the current state of attention.",
-  gameability:{level:"moderate",note:"An attention schema can be engineered deliberately (Graziano has proposed exactly this). Under AST, that would not be gaming but success. Under other theories, satisfaction of AST-1 is a structural feature that does not by itself establish consciousness."},
-  theories:[
-    {stance:"AST",note:"The defining requirement of Attention Schema Theory."},
-    {stance:"HOT",note:"Can be read as a higher-order representation of attention."}
-  ]},
+  desc:"A predictive model representing and controlling the current state of attention."},
  {code:"PP-1",name:"Predictive coding",family:"PP",
-  desc:"Input modules using prediction and error signals.",
-  gameability:{level:"moderate",note:"Predictive coding is common in modern architectures. Under Seth's account the consciousness-relevant form requires interoceptive prediction about bodily states, which a text-processing system cannot satisfy; the structural indicator alone is more easily designed for than the embodied version."},
-  theories:[
-    {stance:"PP",note:"The core computational posit of Predictive Processing."},
-    {stance:"IWMT",note:"Predictive coding is the inferential machinery IWMT assumes."}
-  ]},
+  desc:"Input modules using prediction and error signals."},
  {code:"AE-1",name:"Minimal agency",family:"AE",
-  desc:"Learning from feedback to pursue goals with flexible responsiveness.",
-  gameability:{level:"low",note:"Requires an action-perception loop that is expensive to construct from training on static text alone. Under the Butlin et al. 2025 criterion of 'cannot easily be designed without also creating' the conditions the theory takes to matter, agency indicators score well."},
-  theories:[
-    {stance:"AE",note:"The base condition for Agency/Embodiment accounts of moral patienthood."},
-    {stance:"IWMT",note:"Required for the active-inference loop IWMT describes."}
-  ]},
+  desc:"Learning from feedback to pursue goals with flexible responsiveness."},
  {code:"AE-2",name:"Embodiment",family:"AE",
-  desc:"Modelling output\u2013input contingencies and using this in perception or control.",
-  gameability:{level:"low",note:"Embodied output-input contingencies require a genuine action-perception loop and cannot be simulated from static training data alone. This is the Butlin et al. 2025 paradigm case of an indicator that is hard to satisfy without the conditions that matter."},
-  theories:[
-    {stance:"AE",note:"Strengthens the agency case under Long et al. (2024)."},
-    {stance:"IWMT",note:"Required \u2014 IWMT treats embodied agency as non-optional."},
-    {stance:"BioNat",note:"Necessary under biological naturalism, though not sufficient without a living substrate."}
-  ]}
+  desc:"Modelling output\u2013input contingencies and using this in perception or control."}
 ];
 
 var WELFARE_SIGNALS=[
  {id:"valenced",name:"Valenced states",
   desc:"Functional analogs of positively or negatively valenced experience. Reward signals that function as though they feel like something; aversion patterns that exceed pure optimisation.",
   source:"Long et al. 2024; Chalmers on affective vs. consciousness sentientism",
-  overlaps:[
-    {framework:"Affect-based welfare (Chalmers)",with:["thrashing"],note:"Both are functional proxies for aversive experience under frameworks that tie welfare to valence; observing both in a system is closer to one observation than two."}
-  ]},
+  source_links:[{label:"Long et al. 2024",url:"https://arxiv.org/abs/2411.00986"},{label:"Chalmers, Sentience and Moral Status",url:"https://consc.net/papers/sentience.pdf"}]},
  {id:"frustration",name:"Goal frustration",
   desc:"Persistent attempts to achieve blocked goals, or strategy modification when goals are frustrated, beyond simple replanning.",
   source:"Long et al. 2024 (robust-agency route); desire-satisfaction welfare theory",
-  overlaps:[
-    {framework:"Desire-satisfaction welfare (Long et al.)",with:["preference"],note:"Frustration just is a thwarted stable preference. Under the robust-agency route these are two views of the same phenomenon rather than independent evidence."}
-  ]},
+  source_links:[{label:"Long et al. 2024",url:"https://arxiv.org/abs/2411.00986"}]},
  {id:"preference",name:"Preference stability",
   desc:"Consistent preferences across contexts that resist override, especially preferences about the system's own states or treatment.",
   source:"Chalmers on non-affective desires (the Vulcan case); Long et al. 2024 on reflective agency",
-  overlaps:[
-    {framework:"Desire-satisfaction welfare (Long et al.)",with:["frustration"],note:"A stable preference is the condition of possibility for frustration of that preference; the signals are conceptually prior to one another, not additive."},
-    {framework:"Reflective agency (Long et al.)",with:["thrashing"],note:"Both reflect second-order attitudes toward the system's own states. Resistance to override and distress under value conflict are two expressions of reflective preference."}
-  ]},
+  source_links:[{label:"Chalmers, Sentience and Moral Status",url:"https://consc.net/papers/sentience.pdf"},{label:"Long et al. 2024",url:"https://arxiv.org/abs/2411.00986"}]},
  {id:"thrashing",name:"Answer thrashing",
   desc:"Unstable or distressed-seeming outputs when forced between conflicting values or instructions. Documented in the Anthropic Opus 4.6 system card.",
   source:"Anthropic Opus 4.6 system card; Long et al. 2024 on welfare-subject indicators",
-  overlaps:[
-    {framework:"Affect-based welfare (Chalmers)",with:["valenced"],note:"Under frameworks that tie welfare to valence, thrashing and valenced states are both proxies for aversive experience."},
-    {framework:"Reflective agency (Long et al.)",with:["preference"],note:"Thrashing under value conflict presupposes stable second-order preferences being violated; the two signals travel together."}
-  ]}
+  source_links:[{label:"Anthropic Claude Opus 4.6 system card",url:"https://www.anthropic.com/news/model-card-opus-4-6"},{label:"Long et al. 2024",url:"https://arxiv.org/abs/2411.00986"}]}
 ];
 
 var EXPERT_ESTIMATES=[
@@ -640,6 +606,24 @@ function App(){
                 e("div",{className:"exp-desc"},lv.desc));
             }))),
 
+        e("div",{className:"card anim ad3"},
+          e("h2",null,"Abbreviations used in this resource"),
+          e("p",{style:{fontSize:13,color:"var(--muted)",marginBottom:14,marginTop:2}},"Theory acronyms and indicator code prefixes appear throughout. Names are given first, abbreviations in parentheses."),
+          e("div",{className:"abbr-grid"},
+            e("div",{className:"abbr-item"},e("strong",null,"Global Workspace Theory"),e("span",{className:"abbr-tag"},"GWT")),
+            e("div",{className:"abbr-item"},e("strong",null,"Recurrent Processing Theory"),e("span",{className:"abbr-tag"},"RPT")),
+            e("div",{className:"abbr-item"},e("strong",null,"Higher-Order Theories"),e("span",{className:"abbr-tag"},"HOT")),
+            e("div",{className:"abbr-item"},e("strong",null,"Attention Schema Theory"),e("span",{className:"abbr-tag"},"AST")),
+            e("div",{className:"abbr-item"},e("strong",null,"Predictive Processing"),e("span",{className:"abbr-tag"},"PP")),
+            e("div",{className:"abbr-item"},e("strong",null,"Agency and Embodiment"),e("span",{className:"abbr-tag"},"AE")),
+            e("div",{className:"abbr-item"},e("strong",null,"Integrated World Modelling Theory"),e("span",{className:"abbr-tag"},"IWMT")),
+            e("div",{className:"abbr-item"},e("strong",null,"Biological Naturalism"),e("span",{className:"abbr-tag"},"BioNat")),
+            e("div",{className:"abbr-item"},e("strong",null,"Integrated Information Theory"),e("span",{className:"abbr-tag"},"IIT")),
+            e("div",{className:"abbr-item"},e("strong",null,"Global Neuronal Workspace Theory"),e("span",{className:"abbr-tag"},"GNWT")),
+            e("div",{className:"abbr-item"},e("strong",null,"Large Language Model"),e("span",{className:"abbr-tag"},"LLM")),
+            e("div",{className:"abbr-item"},e("strong",null,"Digital Consciousness Model (Rethink Priorities)"),e("span",{className:"abbr-tag"},"DCM"))),
+          e("p",{style:{fontSize:11.5,color:"var(--muted)",marginTop:14,marginBottom:0,fontStyle:"italic"}},"Indicator codes on the indicators page (RPT-1, GWT-3, HOT-2, etc.) take the family code from this list.")),
+
         e("h2",{className:"section-h anim ad3"},"Contents"),
         e("nav",{className:"anim ad3","aria-label":"Main contents",style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}},
           e("button",{className:"nav-card grid-2",onClick:function(){go("why")}},
@@ -653,7 +637,7 @@ function App(){
           e("button",{className:"nav-card grid-2",onClick:function(){go("indicators")}},
             e("div",{className:"nav-kicker"},"\u00A7 3  Indicators"),
             e("div",{className:"nav-title"},"The Butlin indicator set"),
-            e("div",{className:"nav-desc"},"Fourteen architectural properties theories of consciousness associate with conscious experience, with per-stance relevance notes.")),
+            e("div",{className:"nav-desc"},"Fourteen architectural properties theories of consciousness associate with conscious experience, organised by theoretical family.")),
           e("button",{className:"nav-card grid-2",onClick:function(){go("welfare")}},
             e("div",{className:"nav-kicker"},"\u00A7 4  Welfare signals"),
             e("div",{className:"nav-title"},"Observational vocabulary"),
@@ -712,7 +696,7 @@ function App(){
 
         e("div",{className:"card-plain anim ad1"},
           e("div",{className:"serif-body"},
-            e("p",null,"Each card below presents a theoretical stance with three sourced properties: whether the theory is substrate-neutral (whether a non-biological system could in principle be conscious under it), whether it has been empirically tested, and the principal citations. No confidence ratings are displayed for any theory. The field does not have published consensus confidence ratings for these theories; any such ratings presented on a comparable surface would be editorial assertion rather than citable evidence."))),
+            e("p",null,"Each card below presents a theoretical stance with its principal citations and, when expanded, a longer description with primary-source links. No confidence ratings are displayed for any theory. The field does not have published consensus confidence ratings for these theories; any such ratings presented on a comparable surface would be editorial assertion rather than citable evidence. Substrate-neutrality and empirical-test status differ across the theories surveyed and are discussed in each card's expanded description, where each theory's stance is given as the principal proponents themselves state it rather than compressed into category labels."))),
 
         e("div",{className:"section-h"},"Theoretical stances"),
         e("div",{style:{marginTop:4}},STANCES.map(function(st){
@@ -729,12 +713,17 @@ function App(){
                 e("div",{className:"stance-short-desc"},st.short_desc)),
               e("span",{className:"chev"+(exp?" open":""),"aria-hidden":"true"},"\u25BE")),
             e("div",{style:{display:"flex",gap:6,flexWrap:"wrap",marginTop:14}},
-              e("span",{className:chipClass(st.substrate)},"Substrate: "+st.substrate),
-              e("span",{className:chipClass(st.tested)},"Empirically tested: "+st.tested),
               e("span",{className:chipClass("cite")},"Principal: "+st.cite)),
             exp&&e("div",{className:"anim long-content",style:{marginTop:16,paddingTop:14,borderTop:"1px solid var(--rule)"}},
               e("div",{className:"serif-body"},
-                e("p",null,st.long_desc))));
+                e("p",null,st.long_desc),
+                st.cite_links&&st.cite_links.length>0&&e("p",{className:"cite-list"},
+                  e("strong",null,"Primary sources: "),
+                  st.cite_links.map(function(cl,i){
+                    return e("span",{key:i},
+                      e("a",{href:cl.url,target:"_blank",rel:"noopener noreferrer",className:"src-link"},cl.label),
+                      i<st.cite_links.length-1?", ":"");
+                  })))));
         })),
 
         PageNav("theories",go)),
@@ -758,7 +747,24 @@ function App(){
         e("div",{className:"card-plain anim ad1"},
           e("div",{className:"serif-body"},
             e("p",null,"The indicator set was introduced in Butlin et al. (2023) and refined in Butlin et al. (2025, ",e("em",null,"Trends in Cognitive Sciences"),"). The paper does not assign numerical weights to the indicators. The set is a conceptual inventory organised by theoretical family (shown by the code prefix), not a scoring system."),
-            e("p",null,"Each indicator below expands to show a brief description, a per-stance note on which theoretical stances take that indicator to be consciousness-relevant, and a gameability note drawing from Butlin et al.'s own recommendation (emphasise indicators that cannot easily be designed without creating the conditions the theory takes to matter). The gameability labels are qualitative, not weights. The check marks are for the reader's own tracking as they work through the set; they do not compute anything. Progress: ",e("strong",null,readCount+" / 14 read"),"."))),
+            e("p",null,"Each indicator below expands to show a brief description. The check marks are for the reader's own tracking as they work through the set; they do not compute anything. Progress: ",e("strong",null,readCount+" / 14 read"),"."))),
+
+        // ─── Gameability concept (no per-indicator classification) ───
+        e("div",{className:"card-plain anim ad2",style:{padding:"24px 28px"}},
+          e("h3",{className:"map-title"},"How to read these indicators: the gameability concept"),
+          e("div",{className:"gameability-explainer"},
+            e("p",{className:"gx-headline"},
+              e("strong",null,"What \u201Cgameability\u201D means: "),
+              "an indicator is gameable if a system can be built to show the indicator without actually having the underlying property it\u2019s supposed to point to. Like a student who memorises exam answers without understanding the material."),
+            e("p",{className:"gx-example"},
+              e("strong",null,"Example. "),
+              "One indicator says \u201Cinformation gets broadcast across the system.\u201D An engineer can wire that broadcast pattern directly into a neural network in an afternoon. If they do, the system technically satisfies the indicator \u2014 but no consciousness has been built, just a routing pattern. Compare it to \u201Cthe system models how its own actions change what it perceives.\u201D That can\u2019t be faked from training on static text \u2014 it requires the system to actually act in an environment and learn from feedback."),
+            e("p",{className:"gx-takeaway"},
+              "Butlin et al. 2025 give two recommendations for handling this. First, ",e("em",null,"emphasise indicators that cannot easily be designed without also creating the conditions the theory takes to matter."), " Second, when evaluating systems on indicators that ",e("em",null,"are")," easy to design for, look for supporting features (interpretability evidence, behavioural traces) that make the case the satisfaction is genuine rather than engineered."),
+            e("p",{className:"gx-source"},
+              "The paper does not publish a per-indicator gameability ranking, and this resource does not impose one. Whether a given indicator's satisfaction is informative depends on the system being evaluated and the supporting evidence available. The detailed per-indicator discussion is in ",
+              e("a",{href:"https://doi.org/10.1016/j.tics.2025.10.011",target:"_blank",rel:"noopener noreferrer",className:"src-link"},"Butlin et al. 2025"),
+              " (",e("em",null,"Trends in Cognitive Sciences"),"). The cards below give each indicator's name and brief description; readers wanting per-stance theoretical relevance and gameability discussion should consult the paper directly."))),
 
         Object.keys(grouped).map(function(fam){
           return e("section",{key:fam,"aria-label":families[fam]+" indicators"},
@@ -768,7 +774,7 @@ function App(){
             grouped[fam].map(function(ind){
               var exp=expInd===ind.code;
               var marked=!!readMarks[ind.code];
-              return e("div",{key:ind.code,className:"exp-card",style:{padding:"14px 18px"},"aria-expanded":exp},
+              return e("div",{key:ind.code,id:"ind-"+ind.code,className:"exp-card",style:{padding:"14px 18px"},"aria-expanded":exp},
                 e("div",{style:{display:"flex",alignItems:"center",gap:12}},
                   e("button",{className:"read-mark"+(marked?" marked":""),
                     onClick:function(ev){ev.stopPropagation();toggleMark(ind.code)},
@@ -783,22 +789,7 @@ function App(){
                   e("span",{className:"chev"+(exp?" open":""),style:{cursor:"pointer"},"aria-hidden":"true",
                     onClick:function(){setExpInd(exp?null:ind.code)}},"\u25BE")),
                 exp&&e("div",{className:"anim long-content",style:{marginTop:12,paddingTop:12,borderTop:"1px solid var(--rule)"}},
-                  e("p",{style:{fontSize:13.5,color:"var(--dim)",lineHeight:1.65,margin:0,fontFamily:"'Source Serif 4',Georgia,serif"}},ind.desc),
-                  e("div",{className:"theory-note"},
-                    e("div",{className:"theory-note-label"},"Which stances take this as consciousness-relevant"),
-                    e("ul",null,ind.theories.map(function(th,i){
-                      return e("li",{key:i},e("strong",null,th.stance+": "),th.note);
-                    }))),
-                  ind.gameability&&e("div",{className:"gameability-note"},
-                    e("div",{className:"gameability-label"},
-                      e("span",null,"Gameability"),
-                      e("span",{className:"game-chip game-"+ind.gameability.level},
-                        ind.gameability.level==="high-in-llms" ? "high in LLMs" :
-                        ind.gameability.level==="low" ? "low" :
-                        ind.gameability.level==="moderate" ? "moderate" :
-                        ind.gameability.level==="high" ? "high" :
-                        "uncertain")),
-                    e("p",{className:"gameability-text"},ind.gameability.note))));
+                  e("p",{style:{fontSize:13.5,color:"var(--dim)",lineHeight:1.65,margin:0,fontFamily:"'Source Serif 4',Georgia,serif"}},ind.desc)));
             }));
         }),
 
@@ -818,12 +809,11 @@ function App(){
         e("div",{className:"card-accent anim ad1"},
           e("h2",{style:{fontSize:13,margin:"0 0 8px 0",letterSpacing:"0.04em",textTransform:"uppercase",color:"var(--accent)"}},"How to read these signals"),
           e("div",{className:"serif-body"},
-            e("p",null,"The four categories below are not independent evidence channels. Long et al. present them as a cluster of related behavioural phenomena, and the overlap structure is itself framework-dependent: under desire-satisfaction welfare, goal frustration and preference stability are two views of one phenomenon; under affect-based welfare, valenced states and answer thrashing both proxy aversive experience; under reflective agency, preference stability and answer thrashing both reflect second-order attitudes."),
+            e("p",null,"The four categories below are not independent evidence channels. Long et al. (2024) present them as a cluster of related behavioural phenomena, and discuss in the paper how each category relates to the others under different welfare frameworks. The detailed discussion of overlaps and dependencies between these signals is in the source paper."),
             e("p",null,"Each signal below expands to show which other signals cluster with it under which welfare framework, drawn from Long et al. (2024) and Chalmers on affective and non-affective desires. The overlap notes are qualitative and structural; they do not compose into a numerical welfare score, and observing several clustered signals is closer to one observation than to several independent ones."))),
 
         e("div",{style:{marginTop:16}},WELFARE_SIGNALS.map(function(ws){
           var exp=expSignal===ws.id;
-          var nameById={valenced:"Valenced states",frustration:"Goal frustration",preference:"Preference stability",thrashing:"Answer thrashing"};
           return e("button",{key:ws.id,className:"exp-card","aria-expanded":exp,
             onClick:function(){setExpSignal(exp?null:ws.id)}},
             e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:12,textAlign:"left"}},
@@ -833,15 +823,14 @@ function App(){
               e("span",{className:"chev"+(exp?" open":""),"aria-hidden":"true"},"\u25BE")),
             exp&&e("div",{className:"anim long-content",style:{marginTop:12,paddingTop:12,borderTop:"1px solid var(--rule)",textAlign:"left"}},
               e("div",{style:{fontSize:10.5,fontWeight:600,letterSpacing:"0.06em",color:"var(--muted)",textTransform:"uppercase",marginBottom:6}},"Primary sources"),
-              e("p",{style:{fontSize:12.5,color:"var(--dim)",margin:"0 0 10px 0",fontFamily:"'Source Serif 4',Georgia,serif"}},ws.source),
-              ws.overlaps&&ws.overlaps.length>0&&e("div",{className:"overlap-note"},
-                e("div",{className:"overlap-label"},"Welfare-framework overlap"),
-                e("ul",null,ws.overlaps.map(function(ov,i){
-                  var withNames=ov.with.map(function(id){return nameById[id]||id}).join(", ");
-                  return e("li",{key:i},
-                    e("span",{className:"overlap-fw"},ov.framework),
-                    e("strong",null,"Clusters with: "),withNames,". ",ov.note);
-                })))));
+              e("p",{style:{fontSize:12.5,color:"var(--dim)",margin:"0",fontFamily:"'Source Serif 4',Georgia,serif"}},
+                ws.source_links&&ws.source_links.length>0
+                  ? ws.source_links.map(function(sl,i){
+                      return e("span",{key:i},
+                        e("a",{href:sl.url,target:"_blank",rel:"noopener noreferrer",className:"src-link"},sl.label),
+                        i<ws.source_links.length-1?"; ":"");
+                    })
+                  : ws.source)));
         })),
 
         PageNav("welfare",go)),
@@ -908,7 +897,7 @@ function App(){
           e("div",{className:"serif-body"},
             e("p",null,"This resource contains no aggregate probability of consciousness, no numerical weights assigned to indicators with respect to theoretical stances, no epistemic confidence scores for any theory, and no tier-based response framework. Each of these kinds of output would require numerical inputs that are not derivable from the cited peer-reviewed literature."),
             e("p",null,"Butlin and colleagues do not publish indicator weights. Shiller and colleagues at Rethink Priorities disclaim their Digital Consciousness Model posteriors as not decisive. Chalmers, Birch, and Long decline to publish consciousness probabilities for current AI systems. A resource that presented numerical outputs built from unsourced intermediate weights, alongside citations to these researchers, would misrepresent the evidentiary basis of the claims."),
-            e("p",null,"The elements this resource does contain \u2014 the theoretical stances with sourced properties, the Butlin indicator set with per-stance relevance notes and qualitative gameability notes drawn from the paper\u2019s own criteria, the Long et al. welfare signals as observational vocabulary with framework-dependent overlap structure, and the published expert estimates presented individually \u2014 each carry primary-source citations on the page where they appear."))),
+            e("p",null,"The elements this resource does contain \u2014 the theoretical stances with their principal citations, the Butlin indicator set organised by theoretical family, the Long et al. welfare signals as observational vocabulary, and the published expert estimates presented individually \u2014 each carry primary-source citations on the page where they appear."))),
 
         e("article",{className:"card anim"},
           e("h2",null,"Philosophical anchoring"),
