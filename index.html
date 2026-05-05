@@ -345,8 +345,28 @@ a.src-link:hover{border-bottom-color:var(--accent)}
   display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
 }
 .footer-authors{font-weight:500;color:var(--dim)}
+.footer-authors a.footer-name{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(29,53,87,0.18);padding-bottom:1px;font-weight:500}
+.footer-authors a.footer-name:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.footer-authors a.footer-name-lead{color:var(--accent);font-weight:600;border-bottom-color:rgba(29,53,87,0.45)}
+.footer-authors a.footer-name-lead:hover{color:var(--accent);border-bottom-color:var(--accent)}
 .footer-context{color:var(--muted)}
 .footer-context a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(29,53,87,0.25)}
+
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+.team-card{padding:18px 20px;background:#fafaf8;border-radius:6px;border:1px solid var(--rule)}
+.team-card.team-lead{background:rgba(29,53,87,0.04);border-color:rgba(29,53,87,0.18);border-left:4px solid var(--accent)}
+.team-role{font-size:10.5px;font-weight:600;letter-spacing:0.06em;color:var(--accent);text-transform:uppercase;margin-bottom:6px;font-family:'Inter',sans-serif}
+.team-card.team-lead .team-role{color:var(--accent);font-weight:700}
+.team-name{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:8px;font-family:'Inter',sans-serif;letter-spacing:-0.01em}
+.team-card.team-lead .team-name{color:var(--accent);font-size:17px}
+.team-bio{font-size:13px;color:var(--dim);line-height:1.55;margin-bottom:10px;font-family:'Source Serif 4',Georgia,serif}
+.team-links{font-size:12.5px;font-family:'Inter',sans-serif}
+.team-link{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(29,53,87,0.25);font-weight:500;padding-bottom:1px}
+.team-link:hover{border-bottom-color:var(--accent)}
+.team-link-sep{margin:0 6px;color:var(--muted)}
+@media(max-width:720px){
+  .team-grid{grid-template-columns:1fr}
+}
 
 .skip-link{
   position:absolute;left:-9999px;top:0;
@@ -400,11 +420,12 @@ var e=React.createElement,useState=React.useState,useEffect=React.useEffect;
 
 // ─── PAGE ROUTING (hash-based) ──────────────────────────────────────────
 var PAGES=["landing","why","theories","indicators","welfare","expert","honesty"];
-var PAGE_LABELS={landing:"Contents",why:"§1 Orientation",theories:"§2 Theories",indicators:"§3 Indicators",welfare:"§4 Welfare signals",expert:"§5 Expert estimates",honesty:"§6 Methodology"};
+var PAGE_LABELS={landing:"Contents",why:"§1 Orientation",theories:"§2 Theories",indicators:"§3 Indicators",welfare:"§4 Welfare signals",expert:"§5 Expert estimates",honesty:"§6 Methodology",about:"About"};
 
 function parseHash(){
   var h=(window.location.hash||"").replace(/^#\//,"").replace(/^#/,"");
   if(!h) return "landing";
+  if(h==="about") return "about";
   return PAGES.indexOf(h)>=0 ? h : "landing";
 }
 
@@ -651,7 +672,7 @@ function App(){
             e("div",{className:"nav-title"},"Scope, sourcing, methodology"),
             e("div",{className:"nav-desc"},"The sourcing standard used throughout, the gaming-problem critique, and the scope of numerical claims.")))),
 
-      Footer());
+      Footer(go));
   }
 
   // ═══ WHY ═══
@@ -682,7 +703,7 @@ function App(){
             e("p",null,"At the same time, Bengio and Elmoznino (2025, ",e("em",null,"Science"),") note that AI systems increasingly satisfy the functional requirements of major consciousness theories without this being strong evidence of consciousness, because those functional requirements can in principle be engineered for. Both observations are central to responsible engagement with the question and are returned to in \u00A7 6."))),
 
         PageNav("why",go)),
-      Footer());
+      Footer(go));
   }
 
   // ═══ THEORIES ═══
@@ -727,7 +748,7 @@ function App(){
         })),
 
         PageNav("theories",go)),
-      Footer());
+      Footer(go));
   }
 
   // ═══ INDICATORS ═══
@@ -794,7 +815,7 @@ function App(){
         }),
 
         PageNav("indicators",go)),
-      Footer());
+      Footer(go));
   }
 
   // ═══ WELFARE ═══
@@ -810,7 +831,9 @@ function App(){
           e("h2",{style:{fontSize:13,margin:"0 0 8px 0",letterSpacing:"0.04em",textTransform:"uppercase",color:"var(--accent)"}},"How to read these signals"),
           e("div",{className:"serif-body"},
             e("p",null,"The four categories below are not independent evidence channels. Long et al. (2024) present them as a cluster of related behavioural phenomena, and discuss in the paper how each category relates to the others under different welfare frameworks. The detailed discussion of overlaps and dependencies between these signals is in the source paper."),
-            e("p",null,"Each signal below expands to show which other signals cluster with it under which welfare framework, drawn from Long et al. (2024) and Chalmers on affective and non-affective desires. The overlap notes are qualitative and structural; they do not compose into a numerical welfare score, and observing several clustered signals is closer to one observation than to several independent ones."))),
+            e("p",null,"For each signal below, primary-source links point to the papers that introduce it. Recent Anthropic interpretability work (",
+              e("a",{href:"https://transformer-circuits.pub/2026/emotions/index.html",target:"_blank",rel:"noopener noreferrer",className:"src-link"},"Sofroniew et al. 2026"),
+              ") finds internal representations of emotion concepts in Claude Sonnet 4.5 that causally influence outputs. The authors use \u201Cfunctional emotions\u201D framing and explicitly do not claim subjective experience; the work is relevant here as evidence about the kind of internal structure that may underlie behavioural welfare signals."))),
 
         e("div",{style:{marginTop:16}},WELFARE_SIGNALS.map(function(ws){
           var exp=expSignal===ws.id;
@@ -834,7 +857,7 @@ function App(){
         })),
 
         PageNav("welfare",go)),
-      Footer());
+      Footer(go));
   }
 
   // ═══ EXPERT ═══
@@ -868,7 +891,7 @@ function App(){
             e("p",null,"The policy-relevant question posed by this range is what institutional response is appropriate to a non-zero probability of moral patienthood at roughly this order of magnitude. That question is active in the literature (Birch 2024; Long et al. 2024; Sebo & Long 2025) and is not resolved here."))),
 
         PageNav("expert",go)),
-      Footer());
+      Footer(go));
   }
 
   // ═══ HONESTY ═══
@@ -922,10 +945,73 @@ function App(){
             e("li",null,"Seth, A. (2025). The Mythology of Conscious AI. ",e("em",null,"Noema"),"."),
             e("li",null,"Safron, A. (2020). An Integrated World Modeling Theory of Consciousness. ",e("em",null,"Frontiers in Artificial Intelligence"),", 3, 30."),
             e("li",null,"Kuhn, R. (2024). Landscape of consciousness: The taxonomy. ",e("em",null,"Progress in Biophysics and Molecular Biology"),"."),
-            e("li",null,"Caviola, L., & Saad, E. (2025). Futures with Digital Minds: Expert Forecasts in 2025. ",e("a",{href:"https://arxiv.org/abs/2508.00536",target:"_blank",rel:"noopener noreferrer",className:"src-link"},"arXiv:2508.00536")))),
+            e("li",null,"Caviola, L., & Saad, E. (2025). Futures with Digital Minds: Expert Forecasts in 2025. ",e("a",{href:"https://arxiv.org/abs/2508.00536",target:"_blank",rel:"noopener noreferrer",className:"src-link"},"arXiv:2508.00536")),
+            e("li",null,"Sofroniew, N., Kauvar, I., Saunders, W., Chen, R., et al. (2026). Emotion concepts and their function in a large language model. Anthropic interpretability research, April 2026. ",e("a",{href:"https://transformer-circuits.pub/2026/emotions/index.html",target:"_blank",rel:"noopener noreferrer",className:"src-link"},"transformer-circuits.pub/2026/emotions")))),
 
         PageNav("honesty",go)),
-      Footer());
+      Footer(go));
+  }
+
+  if(page==="about"){
+    return e("div",null,topbar,
+      e("main",{id:"main",className:"page"},
+        e("button",{className:"back-btn",onClick:function(){go("landing")}},"\u2190 Contents"),
+        e("div",{className:"page-kicker anim"},"About"),
+        e("h1",{className:"page-title anim"},"About this resource"),
+        e("p",{className:"page-lede anim"},"Mapping the AI Welfare Frontier is a public-facing onboarding resource for people entering AI welfare. It consolidates the major theories of consciousness, the published indicator methods, the welfare-signal vocabulary, and the range of expert credences in one structured surface, with primary-source links throughout."),
+
+        e("article",{className:"card anim ad1"},
+          e("h2",null,"What this resource is for"),
+          e("div",{className:"serif-body"},
+            e("p",null,"AI welfare research has moved from philosophical speculation to organised programmes inside frontier labs and academic institutions. The work spans philosophy of mind, cognitive science, machine learning, and welfare economics. Newcomers face a fragmented literature with no compact orientation that lays out the major theories without committing the reader to a single position."),
+            e("p",null,"The resource is built to be that orientation. It does not compute aggregate consciousness probabilities, assign indicator weights, or impose a tier-based response framework. The methodology page sets out the reasoning: the field's most engaged researchers decline to publish such outputs for current AI systems, and presenting them on a comparable surface would misrepresent the evidentiary basis of the claims."))),
+
+        e("article",{className:"card anim ad2"},
+          e("h2",null,"Team"),
+          e("div",{className:"team-grid"},
+            e("div",{className:"team-card team-lead"},
+              e("div",{className:"team-role"},"Project lead"),
+              e("div",{className:"team-name"},"Arsam Shaheen"),
+              e("div",{className:"team-bio"},"Head of AI & Data Science. Leads the project, holds editorial responsibility, and is the primary contact for feedback, corrections, and collaboration."),
+              e("div",{className:"team-links"},
+                e("a",{href:"https://www.linkedin.com/in/arsam-shaheen/",target:"_blank",rel:"noopener noreferrer",className:"team-link"},"LinkedIn"),
+                e("span",{className:"team-link-sep"},"\u00B7"),
+                e("a",{href:"mailto:muharssha@gmail.com",className:"team-link"},"muharssha@gmail.com"))),
+            e("div",{className:"team-card"},
+              e("div",{className:"team-role"},"Contributor"),
+              e("div",{className:"team-name"},"Lydia Ruyi Shi"),
+              e("div",{className:"team-bio"},"Theoretical contributor. Raised the structural concerns around welfare-signal non-independence and the gaming problem that shaped how the resource handles those questions."),
+              e("div",{className:"team-links"},
+                e("a",{href:"https://www.linkedin.com/in/lydia-ruyi-shi/",target:"_blank",rel:"noopener noreferrer",className:"team-link"},"LinkedIn"))),
+            e("div",{className:"team-card"},
+              e("div",{className:"team-role"},"Contributor"),
+              e("div",{className:"team-name"},"Maerlin Ellis Diem"),
+              e("div",{className:"team-bio"},"UX and editorial contributor. Provided structural feedback on the visual presentation of indicators and on the abstract framing."),
+              e("div",{className:"team-links"},
+                e("a",{href:"https://www.linkedin.com/in/maerlin-ellis-diem-313774177/",target:"_blank",rel:"noopener noreferrer",className:"team-link"},"LinkedIn"))),
+            e("div",{className:"team-card"},
+              e("div",{className:"team-role"},"Mentor"),
+              e("div",{className:"team-name"},"Julia Bettina Bossmann"),
+              e("div",{className:"team-bio"},"Project mentor. Provided the credibility framing and the methodological discipline that drove the resource's structural decisions about what to include and what to leave out."),
+              e("div",{className:"team-links"},
+                e("a",{href:"https://www.linkedin.com/in/jbossmann",target:"_blank",rel:"noopener noreferrer",className:"team-link"},"LinkedIn"))))),
+
+        e("article",{className:"card anim ad3"},
+          e("h2",null,"Feedback and corrections"),
+          e("div",{className:"serif-body"},
+            e("p",null,"This is a living resource maintained by a small team. Corrections, feedback, and suggestions are welcome."),
+            e("p",null,"For factual errors, suggested additions, or feedback on framing, the primary correspondence address is ",
+              e("a",{href:"mailto:muharssha@gmail.com?subject=aiwelfare.guide%20feedback",className:"src-link"},"muharssha@gmail.com"),
+              ". Each contributor can also be reached via LinkedIn through the links above."),
+            e("p",null,"When reporting a factual issue, a link to the page or section in question, the source you believe contradicts what is shown, and a brief note on the discrepancy will help us correct it as quickly as possible."))),
+
+        e("article",{className:"card anim"},
+          e("h2",null,"Sourcing"),
+          e("div",{className:"serif-body"},
+            e("p",null,"Every numerical figure presented is drawn from a peer-reviewed publication, preprint, or publicly stated credence by a named researcher, and is cited on the page where it appears. Figures that cannot be sourced in this way are not included."),
+            e("p",null,"For the full methodology, including the reasoning behind what the resource deliberately does and does not produce, see the ",
+              e("a",{href:"#/honesty",onClick:function(ev){ev.preventDefault();go("honesty")},className:"src-link"},"methodology page"),".")))),
+      Footer(go));
   }
 
   return null;
@@ -939,10 +1025,23 @@ function PageNav(cur,go){
     nxt?e("button",{className:"btn-primary",onClick:function(){go(nxt)}},PAGE_LABELS[nxt]+" \u2192"):null);
 }
 
-function Footer(){
+function Footer(go){
+  function nav(ev){ if(go){ ev.preventDefault(); go("about"); } }
   return e("footer",{className:"footer"},
-    e("span",{className:"footer-authors"},"Arsam Shaheen \u00B7 Lydia Shi \u00B7 Julia Bossmann"),
-    e("span",{className:"footer-context"},"2026"));
+    e("span",{className:"footer-authors"},
+      e("a",{href:"#/about",onClick:nav,className:"footer-name footer-name-lead",title:"Project lead"},"Arsam Shaheen"),
+      " \u00B7 ",
+      e("a",{href:"#/about",onClick:nav,className:"footer-name"},"Lydia Shi"),
+      " \u00B7 ",
+      e("a",{href:"#/about",onClick:nav,className:"footer-name"},"Maerlin Ellis Diem"),
+      " \u00B7 ",
+      e("a",{href:"#/about",onClick:nav,className:"footer-name"},"Julia Bossmann")),
+    e("span",{className:"footer-context"},
+      "Feedback: ",
+      e("a",{href:"mailto:muharssha@gmail.com?subject=aiwelfare.guide%20feedback"},"muharssha@gmail.com"),
+      " \u00B7 ",
+      e("a",{href:"#/about",onClick:nav},"About"),
+      " \u00B7 2026"));
 }
 
 ReactDOM.render(e(App),document.getElementById("root"));
